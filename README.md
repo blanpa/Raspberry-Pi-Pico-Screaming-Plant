@@ -1,2 +1,3 @@
-# arduino-screaming-plant
-arduino-screaming-plant
+# Raspberry-Pi-Pico-Screaming-Plant
+
+A Raspberry Pi Pico Sreaming Plant 
