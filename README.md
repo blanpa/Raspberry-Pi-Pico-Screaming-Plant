@@ -1,3 +1,8 @@
-# Raspberry-Pi-Pico-Screaming-Plant
+# Raspberry-Pi-Zero-Screaming-Plant
 
-A Raspberry Pi Pico Sreaming Plant 
+A Raspberry Pi Zero Sreaming Plant
+
+Telegram Bot
+MariaDB
+Web-Dashboard
+Sensorik
