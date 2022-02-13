@@ -9,3 +9,12 @@ cd grove.py
 sudo pip install .
 # Python3 
 sudo pip3 install .
+
+
+#grafana 
+sudo apt-get install -y grafana
+sudo /bin/systemctl enable grafana-server
+sudo /bin/systemctl start grafana-server
+
+# postgresql
+sudo apt install postgresql
