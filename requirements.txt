@@ -1,3 +1,2 @@
-pandas
-dash
 psycopg2
+SQLAlchemy

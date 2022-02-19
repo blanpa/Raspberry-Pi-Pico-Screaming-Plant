@@ -1,6 +1,4 @@
-
-# Database
-sudo apt install mariadb-server
+sudo apt-get update && sudo apt-get upgrade
 
 # Libarys for the Sensors
 git clone https://github.com/Seeed-Studio/grove.py
