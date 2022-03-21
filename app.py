@@ -5,8 +5,10 @@ from grove.gpio import GPIO
 import sys
 import logging
 from datetime import datetime
+import playsound
 #from grove.factory import Factory
 import psycopg2
+
 
 # Database Connection
 conn = psycopg2.connect(
@@ -31,19 +33,27 @@ def main():
 
     while True:
         # moist
-        m = sensor_moist.moisture
+        moist = sensor_moist.moisture
 
         # Temp
         temp = sensor_temp.moisture
         #temp = 0
         
         # Motion Sensor
-        Motion_value = GPIO(5, GPIO.IN)
+        motion = GPIO(5, GPIO.IN)
+        motion_value = motion.read()
+        
+        if motion_value == True:
+            if moist > 100:
+                playsound.playsound('test.mp3', False)
+
+            if moist <= 100:
+                playsound.playsound('test.mp3', False)
 
         # Value for Logs
         now = datetime.now()
 
-        logs = f" python_datetime: {now}, moisture_value: {m}, temp_value: {temp}, motion_value: {Motion_value.read()}"
+        logs = f" python_datetime: {now}, moisture_value: {moist}, temp_value: {temp}, motion_value: {Motion_value}"
         logging.debug(logs)
         print(logs)
 
@@ -51,11 +61,10 @@ def main():
         cursor = conn.cursor()
         statement = f""" 
         insert into people2 values(
-            '{now}', 
+            'CURRENT_TIMESTAMP', 
             '{m}',
             '{temp}',
             '{Motion_value.read()}');
-
         """
         cursor.execute(statement)
         conn.commit()
