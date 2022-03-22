@@ -1,1 +1,2 @@
-DEBUG:root: python_datetime: 2022-02-19 17:10:29.896144, moisture_value: 0, temp_value: 1633, motion_value: 1
+DEBUG:root: python_datetime: 2022-03-22 21:24:16.562506, moisture_value: 0, temp_value: 1523, motion_value: 0
+DEBUG:root: python_datetime: 2022-03-22 21:24:17.738826, moisture_value: 0, temp_value: 1525, motion_value: 0
