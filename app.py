@@ -70,9 +70,9 @@ def main():
         # Value for Logs
         now = datetime.now()
 
-        logs = f" python_datetime: {now}, moisture_value: {moist}, temp_value: {temp}, motion_value: {motion_value}"
-        logging.debug(logs)
-        print(logs)
+        #logs = f" python_datetime: {now}, moisture_value: {moist}, temp_value: {temp}, motion_value: {motion_value}"
+        #logging.debug(logs)
+        #print(logs)
 
         # # Database plant_times_series_data
         cursor = conn.cursor()
@@ -89,7 +89,7 @@ def main():
         #conn.close()
 
         # Sleep for 1 Second, we dont want to get to much data
-        time.sleep(1)
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()
