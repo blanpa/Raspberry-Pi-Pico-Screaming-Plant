@@ -1,4 +1,6 @@
 import psycopg2
+import sysconfig
+import os
 
 # from sqlalchemy import create_engine
 print(sysconfig.get_platform())
@@ -28,7 +30,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 statement = """ 
-CREATE TABLE testtest1 (
+CREATE TABLE testtest2 (
 	ts timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	moisture_value int4 NULL,
 	temp_value int4 NULL,
@@ -42,4 +44,5 @@ CREATE TABLE testtest1 (
 cursor.execute(statement)
   
 conn.commit()
+print(statement)
 conn.close()
