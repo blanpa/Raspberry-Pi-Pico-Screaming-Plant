@@ -1,16 +1,38 @@
 # Raspberry-Pi-Zero-Screaming-Plant
 
-A Raspberry Pi Zero Sreaming Plant
+work in progress
+
+Goal: Create a talking plant that tells you when it wants water and a pinch of Big Data.
+
+A Raspberry Pi Zero combined with Seeed Grove Temperature and Moisture Sensor. Maybe more Sensors later, currently expensive.
+
+Postgresql Database for storing the Data.
+
+Grafana Web Dashboard which is connected to the Database, to display the current and historic data.
+
+
+
+
+
+
+
+![Grafana Dashboard](./media/pictures/screenshot.png?raw=true "Grafana Dashboard")
+
 
 
 ## Setup the PostgreSQL Database
 
-working...
+```
+sudo apt install postgresql
+```
 
 ## Setup Grafana
 
-working...
-
+```
+sudo apt-get install -y grafana
+sudo /bin/systemctl enable grafana-server
+sudo /bin/systemctl start grafana-server
+```
 ## Setup the Script as a Service in Raspberry Pi
 
 

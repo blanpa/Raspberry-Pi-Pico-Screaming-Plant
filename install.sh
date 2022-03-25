@@ -16,3 +16,4 @@ sudo /bin/systemctl start grafana-server
 
 # postgresql
 sudo apt install postgresql
+
