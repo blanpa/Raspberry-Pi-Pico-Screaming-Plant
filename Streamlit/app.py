@@ -6,7 +6,6 @@ import pandas as pd
 
 # database
 import sqlalchemy as sqla
-import psycopg2
 
 # Viz
 import plotly as py
@@ -30,6 +29,12 @@ def main():
 
     while True:
         DF = pd.read_sql(Eintrag, con = engine_db)
+
+
+
+
+
+        st.subheader("Detailed Data View")
         st.write(df)
         time.sleep(5)
 
