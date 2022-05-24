@@ -1,4 +1,5 @@
 import psycopg2
+#https://stackoverflow.com/questions/55755095/postgresql-modulenotfounderror-no-module-named-psycopg2
 import sysconfig
 import os
 
