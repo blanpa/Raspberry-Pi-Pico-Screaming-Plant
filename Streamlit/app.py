@@ -30,26 +30,63 @@ def main():
     #    host= st.secrets.db_credentials.host,
     #    )
     
+    #engine_db = sqla.create_engine(secret)
     engine_db = sqla.create_engine(st.secrets.db_credentials.database)
 
-
-
-    kpi1, kpi2, kpi3 = st.columns(3)
-
-    fig_col1, fig_col2 = st.columns(2)
 
 
     statement = """ 
     SELECT * FROM testtest2 ORDER BY ts DESC LIMIT 1000;
     """
 
+    placeholder = st.empty()
+
     while True:
-        DF = pd.read_sql(Eintrag, con = engine_db)
+        df = pd.read_sql(statement, con = engine_db)
 
+        with placeholder.container():
+            kpi1, kpi2, kpi3 = st.columns(3)
 
-        st.subheader("Detailed Data View")
-        st.write(df)
-        time.sleep(5)
+            kpi1.metric(
+                label="Temperature",
+                value=df["temp_value"].mean(),
+                delta= 0,
+            )
+            
+            kpi2.metric(
+                label="Moisture",
+                value=df["moisture_value"].mean(),
+                delta=0,
+            )
+            
+            kpi3.metric(
+                label="Movement",
+                value=df["motion_value"].mean(),
+                delta=0,
+            )
+
+            fig_col1, fig_col2, fig_col3 = st.columns(3)
+
+            with fig_col1:
+                st.markdown("### temp_value")
+                fig = px.line(df, y='temp_value', x="ts")
+                st.write(fig)
+            
+            with fig_col2:
+                st.markdown("### moisture_value")
+                fig2 = px.line(df, y='moisture_value', x="ts")
+                st.write(fig2)
+            
+            with fig_col3:
+                st.markdown("### motion_value")
+                fig3 = px.line(df, y='motion_value', x="ts")
+                st.write(fig3)
+
+            st.subheader("Detailed Data View")
+            st.write(df)
+            time.sleep(5)
+            
+
 
 
 
