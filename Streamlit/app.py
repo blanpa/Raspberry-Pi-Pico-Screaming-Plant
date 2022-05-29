@@ -22,24 +22,20 @@ st.set_page_config(
 def main():
     st.title("Pascals real-time live Dashboard with IOT-Topfpflanze")
 
-
-    #conn = psycopg2.connect(
-    #    database= st.secrets.db_credentials.database,
-    #    user= st.secrets.db_credentials.user,
-    #    password= st.secrets.db_credentials.password,
-    #    host= st.secrets.db_credentials.host,
-    #    )
     
-    #engine_db = sqla.create_engine(secret)
     engine_db = sqla.create_engine(st.secrets.db_credentials.database)
 
-
-
-    statement = """ 
-    SELECT * FROM testtest2 ORDER BY ts DESC LIMIT 1000;
+    #anzahl = st.number_input(label="", min_value=100, max_value=100000, value = 2000)
+    
+    statement = f""" 
+    SELECT * FROM testtest2 ORDER BY ts DESC LIMIT 3000;
     """
 
+    st.text_input(label = "SQL Query", value= statement )
+
+
     placeholder = st.empty()
+
 
     while True:
         df = pd.read_sql(statement, con = engine_db)
