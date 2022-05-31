@@ -3,3 +3,5 @@ numpy
 pandas
 sqlalchemy
 psycopg2-binary
+snowflake-connector-python
+snowflake-connector-python[pandas]
