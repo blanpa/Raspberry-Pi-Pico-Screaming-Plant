@@ -13,18 +13,21 @@ import sysconfig
 import math
 from grove.adc import ADC
 import numpy as np
-import snowflake.connector
+
 
 # Database Connection
-conn = snowflake.connector.connect(
-    user=USER,
-    password=PASSWORD,
-    account=ACCOUNT,
-    warehouse=WAREHOUSE,
-    database=DATABASE,
-    schema=SCHEMA
-)
-conn.autocommit = True
+from sqlalchemy import create_engine
+
+# Create connection to Snowflake using your account and user
+
+account_identifier = '<account_identifier>'
+user = '<user_login_name>'
+password = '<password>'
+
+conn_string = f"snowflake://{user}:{password}@{account_identifier}"
+engine = create_engine(conn_string)
+connection = engine.connect()
+
 
 # Connect to Moisture Sensor, connect to alalog pin 2(slot A2)
 sensor_moist = GroveMoistureSensor(0)
@@ -71,7 +74,7 @@ def main():
         # print(logs)
 
         # # Database plant_times_series_data
-        cursor = conn.cursor()
+
         statement = f""" 
         INSERT INTO PLANTDATA_TEST.PFLANZENDATEN.TEST
         VALUES(
@@ -80,10 +83,7 @@ def main():
             {temp_value},
             {motion_value});
         """
-        cursor.execute(statement)
-
-        conn.commit()
-        # conn.close()
+        connection.execute(statement)
 
         # Sleep for 2 Second, we dont want to get to much data
         time.sleep(2)

@@ -1,2 +1,5 @@
 psycopg2
 SQLAlchemy
+pyarrow
+snowflake-sqlalchemy
+snowflake-connector-python
