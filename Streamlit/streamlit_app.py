@@ -25,42 +25,43 @@ st.set_page_config(
 # Uses st.experimental_singleton to only run once.
 
 
-@st.experimental_singleton
-def init_connection():
-    return snowflake.connector.connect(**st.secrets["snowflake"])
+# @st.experimental_singleton
+# def init_connection():
+#     return snowflake.connector.connect(**st.secrets["snowflake"])
 
 
-conn = init_connection()
+# conn = init_connection()
 
-# Perform query.
-# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+# # Perform query.
+# # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 
 
-@st.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        # return cur.fetchall()
-        return cur.fetch_pandas_all()
+# @st.experimental_memo(ttl=600)
+# def run_query(query):
+#     with conn.cursor() as cur:
+#         cur.execute(query)
+#         # return cur.fetchall()
+#         return cur.fetch_pandas_all()
 
 
 def main():
     st.title("IOT-Topfpflanze")
 
-    # engine_db = sqla.create_engine(st.secrets.db_credentials.database)
+    engine_db = sqla.create_engine(st.secrets.db_credentials.database)
 
     anzahl = st.number_input(label="", min_value=100,
-                             max_value=100000, value=2000)
+                             max_value=100000, value=4000)
 
     statement = f""" 
-    SELECT * FROM PLANTDATA_TEST.PFLANZENDATEN.TEST ORDER BY ts DESC LIMIT {anzahl};
+    SELECT * FROM "public"."testtest2" ORDER BY ts DESC LIMIT {anzahl};
     """
     #st.text_input(label = "SQL Query", value= statement )
 
     placeholder = st.empty()
 
     while True:
-        df = run_query(statement)
+        # df = run_query(statement)
+        df = pd.read_sql_query(statement, engine_db)
 
         with placeholder.container():
             kpi1, kpi2, kpi3 = st.columns(3)
@@ -100,13 +101,19 @@ def main():
                 fig3 = px.line(df, y='motion_value', x="ts")
                 st.write(fig3)
 
-            data_col1, data_col2 = st.columns(2)
+            data_col1, data_col2, data_col3 = st.columns(2)
 
             with data_col1:
+                st.subheader("Moisture Forecast")
+                
+                pass
+
+
+            with data_col2:
                 st.subheader("Detailed Data View")
                 st.write(df)
 
-            with data_col2:
+            with data_col3:
                 st.subheader("Data")
                 st.write(df.describe())
 
