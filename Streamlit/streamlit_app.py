@@ -101,13 +101,12 @@ def main():
                 fig3 = px.line(df, y='motion_value', x="ts")
                 st.write(fig3)
 
-            data_col1, data_col2, data_col3 = st.columns(2)
+            data_col1, data_col2, data_col3 = st.columns(3)
 
             with data_col1:
                 st.subheader("Moisture Forecast")
-                
-                pass
 
+                pass
 
             with data_col2:
                 st.subheader("Detailed Data View")
