@@ -36,7 +36,7 @@ conn = psycopg2.connect(
     dbname="rlruqohb",
     user="rlruqohb",
     password=PASSWORD,
-    host="	hattie.db.elephantsql.com", port="5432")
+    host="hattie.db.elephantsql.com", port="5432")
 
 conn.autocommit = True
 
