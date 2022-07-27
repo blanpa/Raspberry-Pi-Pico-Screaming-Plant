@@ -84,7 +84,7 @@ def main():
         # # Database plant_times_series_data
         cursor = conn.cursor()
         statement = f""" 
-        INSERT INTO testtest3
+        INSERT INTO plantdb_table_1
         VALUES(
             CURRENT_TIMESTAMP,
             {moist_value},

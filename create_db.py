@@ -31,11 +31,11 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 statement = """ 
-CREATE TABLE testtest2 (
+CREATE TABLE plantdb_table_1 (
 	ts timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	moisture_value int4 NULL,
-	temp_value int4 NULL,
-	motion_value int4 NULL);
+	moisture_value FLOAT4 NULL,
+	temp_value FLOAT4 NULL,
+	motion_value FLOAT4 NULL);
 """
 #SELECT create_hypertable('tbl_xyz', 'ts');
 
