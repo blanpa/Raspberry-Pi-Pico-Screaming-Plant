@@ -18,7 +18,7 @@ print(sysconfig.get_platform())
 
 try:
     if sysconfig.get_platform() == "linux-armv7l":
-        path = os.path.join("/home", "pi", "Documents",
+        path = os.path.join("/home", "plant", "Documents",
                             "Code", "Confidental", "psswd.txt")
         PASSWORD = open(path, mode="r").read()
     else:
