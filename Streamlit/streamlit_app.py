@@ -53,7 +53,7 @@ def main():
                              max_value=100000, value=4000)
 
     statement = f""" 
-    SELECT * FROM "public"."plantdb_table1" ORDER BY ts DESC LIMIT {anzahl};
+    SELECT * FROM "public"."plantdb_table_1" ORDER BY ts DESC LIMIT {anzahl};
     """
     #st.text_input(label = "SQL Query", value= statement )
 
