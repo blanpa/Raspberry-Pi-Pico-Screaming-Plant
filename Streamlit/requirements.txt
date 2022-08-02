@@ -4,3 +4,5 @@ pandas
 sqlalchemy
 psycopg2-binary
 #snowflake-connector-python
+plost
+click<=8.0.4
