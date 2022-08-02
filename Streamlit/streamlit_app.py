@@ -6,7 +6,7 @@ import pandas as pd
 
 # database
 import sqlalchemy as sqla
-import snowflake.connector
+# import snowflake.connector
 
 # Viz
 import time  # to simulate a real time data, time loop
@@ -24,15 +24,13 @@ from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
     page_title="Real-Time Plant Dashboard",
-    page_icon="✅",
+    page_icon="🪴",
     layout="wide",
 )
 
-with open('style.css') as f:
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-#Autorefresh:
-count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
+st.title("Real-Time Plant Dashboard")
+# Autorefresh:
+count = st_autorefresh(interval=10000, limit=1000, key="fizzbuzzcounter")
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
@@ -56,34 +54,27 @@ count = st_autorefresh(interval=5000, limit=100, key="fizzbuzzcounter")
 #         # return cur.fetchall()
 #         return cur.fetch_pandas_all()
 
-#Time
+# Time
 nowTime = datetime.now()
 current_time = nowTime.strftime("%H:%M:%S")
 today = str(date.today())
-timeMetric,= st.columns(1)
-timeMetric.metric("",today)
+timeMetric, = st.columns(1)
 
 engine_db = sqla.create_engine(st.secrets.db_credentials.database)
 
-anzahl = st.number_input(label="", min_value=100,
-                            max_value=100000, value=4000)
-
 statement = f""" 
-SELECT * FROM "public"."plantdb_table_1" ORDER BY ts DESC LIMIT {anzahl};
+SELECT * FROM "public"."plantdb_table_1" ORDER BY ts DESC LIMIT {4000};
 """
 #st.text_input(label = "SQL Query", value= statement )
 
 # Row A
-a1, a2 = st.columns(3)
+a1, a2, a3, a4, a5, a6 = st.columns(6)
 a1.metric("Current Temperature", f"{get_temp()}", f"{temp_difference()}"+"%")
-a2.metric("Current time", current_time)
-
-# Row B
-b1, b2, b3, b4 = st.columns(4)
-b1.metric("Humidity", f"{get_humidity()}"+"%")
-b2.metric("Feels like", f"{get_feel()}")
-b3.metric("Highest temperature", f"{get_temp_max()}")
-b4.metric("Lowest temperature", f"{get_temp_min()}")
+a2.metric("Current time", f"{current_time}")
+a3.metric("Humidity", f"{get_humidity()}"+"%")
+a4.metric("Feels like", f"{get_feel()}")
+a5.metric("Highest temperature", f"{get_temp_max()}")
+a6.metric("Lowest temperature", f"{get_temp_min()}")
 
 
 placeholder = st.empty()
@@ -95,21 +86,21 @@ with placeholder.container():
     kpi1, kpi2, kpi3 = st.columns(3)
 
     kpi1.metric(
-        label="Temperature",
-        value=df["temp_value"].mean(),
-        delta=0,
+        label="Temperature Sensor",
+        value=df["temp_value"][0],
+        delta=df["temp_value"][1]-df["temp_value"][0],
     )
 
     kpi2.metric(
-        label="Moisture",
-        value=df["moisture_value"].mean(),
-        delta=0,
+        label="Moisture Sensor",
+        value=df["moisture_value"][0],
+        delta=df["moisture_value"][1]-df["moisture_value"][0],
     )
 
     kpi3.metric(
-        label="Movement",
-        value=df["motion_value"].mean(),
-        delta=0,
+        label="Movement Sensor",
+        value=df["motion_value"][0],
+        delta=df["motion_value"][1]-df["motion_value"][0],
     )
 
 fig_col1, fig_col2, fig_col3 = st.columns(3)
@@ -131,21 +122,21 @@ with fig_col3:
 
 data_col1, data_col2, data_col3 = st.columns(3)
 
-with data_col1:
-    st.subheader("Moisture Forecast")
+# with data_col1:
+#     st.subheader("Moisture Forecast")
 
-    pass
+#     pass
 
-with data_col2:
-    st.subheader("Detailed Data View")
-    st.write(df)
+# with data_col2:
+#     st.subheader("Detailed Data View")
+#     st.write(df)
 
-with data_col3:
-    st.subheader("Data")
-    st.write(df.describe())
+# with data_col3:
+#     st.subheader("Data")
+#     st.write(df.describe())
 
 
-#def main():
+# def main():
 #    pass
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()
